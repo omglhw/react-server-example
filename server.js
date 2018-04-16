@@ -14,11 +14,14 @@ var BUNDLE = null
 // Just create a plain old HTTP server that responds to two endpoints ('/' and
 // '/bundle.js') This would obviously work similarly with any higher level
 // library (Express, etc)
+
+//只需创建一个响应两个端点（'/'和'/bundle.js'）的普通旧式HTTP服务器，这类似任何更高级别的库（Express等）
 http.createServer(function(req, res) {
 
   // If we hit the homepage, then we want to serve up some HTML - including the
   // server-side rendered React component(s), as well as the script tags
   // pointing to the client-side code
+  //如果我们点击主页，那么我们想要提供一些HTML（包括/服务器端渲染的React组件）以及指向客户端代码的脚本标记
   if (req.url === '/') {
 
     res.setHeader('Content-Type', 'text/html; charset=utf-8')
@@ -29,6 +32,10 @@ http.createServer(function(req, res) {
     // here (with some potentially dangerous values for testing), but you could
     // imagine this would be objects typically fetched async from a DB,
     // filesystem or API, depending on the logged-in user, etc.
+    
+
+//``props``表示要传递给React组件的数据 - 就像传递数据或暴露模板（如Jade或Handlebars）中的变量一样。
+// 我们只是在这里使用一些虚拟数据（有些潜在的危险值用于测试），但您可以想象这通常是从DB，文件系统或API异步获取的对象，具体取决于登录用户等。
     var props = {
       items: [
         'Item 0',
@@ -41,11 +48,14 @@ http.createServer(function(req, res) {
     // Here we're using React to render the outer body, so we just use the
     // simpler renderToStaticMarkup function, but you could use any templating
     // language (or just a string) for the outer page template
+    // 这里我们使用React来渲染外部主体，因此我们只使用更简单的renderToStaticMarkup函数，但是您可以使用任何模板语言（或者仅仅是一个字符串）作为外部页面模板
     var html = ReactDOMServer.renderToStaticMarkup(body(null,
 
       // The actual server-side rendering of our component occurs here, and we
       // pass our data in as `props`. This div is the same one that the client
       // will "render" into on the browser from browser.js
+      //我们组件的实际服务器端渲染发生在这里，并且我们将数据作为“props”传递。
+      //这个div与客户端将通过browser.js在浏览器上“render”成一样
       div({
         id: 'content',
         dangerouslySetInnerHTML: {__html: ReactDOMServer.renderToString(App(props))},
